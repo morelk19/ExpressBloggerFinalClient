@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import '../App.css';
 import axios from 'axios';
 
+const REACT_BACKEND = process.env.REACT_APP_ENDPOINT;
+
 class showBookDetails extends Component {
   constructor(props) {
     super(props);
@@ -14,9 +16,9 @@ class showBookDetails extends Component {
   componentDidMount() {
     // console.log("Print id: " + this.props.match.params.id);
     axios
-      .get('http://localhost:8082/api/books/'+this.props.match.params.id)
+      .get(REACT_BACKEND +'/'+ this.props.match.params.id)
       .then(res => {
-        // console.log("Print-showBookDetails-API-response: " + res.data);
+        console.log("Print-showBookDetails-API-response: " + res.data);
         this.setState({
           book: res.data
         })
@@ -28,7 +30,7 @@ class showBookDetails extends Component {
 
   onDeleteClick (id) {
     axios
-      .delete('http://localhost:8082/api/books/'+id)
+      .delete(REACT_BACKEND+'/'+id)
       .then(res => {
         this.props.history.push("/");
       })

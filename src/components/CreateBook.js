@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import '../App.css';
 import axios from 'axios';
 
+const REACT_BACKEND = process.env.REACT_APP_ENDPOINT;
 
 class CreateBook extends Component {
   constructor() {
@@ -34,7 +35,7 @@ class CreateBook extends Component {
     };
 
     axios
-      .post('http://localhost:5001/api/books', data)
+      .post(REACT_BACKEND, data)
       .then(res => {
         this.setState({
           title: '',
