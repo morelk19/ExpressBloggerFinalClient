@@ -14,7 +14,6 @@ function ShowBookList(props){
   const [books, setBooks] = useState([]);  
 
   // after component is rendered , get books from endpoint
-  console.log();
   useEffect(() => {
     axios
     .get(REACT_BACKEND)

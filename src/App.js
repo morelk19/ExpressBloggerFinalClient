@@ -10,7 +10,6 @@ import ShowBookList from './components/ShowBookList';
 import ShowBookDetails from './components/ShowBookDetails';
 import UpdateBookInfo from './components/UpdateBookInfo';
 
-require('dotenv').config();
 
 class App extends Component {
   render() {
