@@ -6,8 +6,7 @@ import BookCard from './BookCard';
 import { useState, useEffect } from 'react';
 
 
-const REACT_BACKEND = process.env.REACT_ENDPOINT;
-
+const REACT_BACKEND = process.env.REACT_APP_ENDPOINT;
 
 function ShowBookList(props){
 
