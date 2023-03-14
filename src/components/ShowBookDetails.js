@@ -1,93 +1,41 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../App.css';
 import axios from 'axios';
 
 const REACT_BACKEND = process.env.REACT_APP_ENDPOINT;
 
-class showBookDetails extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      book: {}
-    };
-  }
+function showBookDetails(props){
+    const [book, setBook] = useState({});
 
-  componentDidMount() {
-    // console.log("Print id: " + this.props.match.params.id);
-    axios
-      .get(REACT_BACKEND +'/'+ this.props.match.params.id)
+    console.log(props);
+    useEffect(() => {
+
+      axios
+      .get(REACT_BACKEND +'/'+ props.match.params.id)
       .then(res => {
         console.log("Print-showBookDetails-API-response: " + res.data);
-        this.setState({
-          book: res.data
-        })
+        setBook(res.data)
       })
       .catch(err => {
         console.log("Error from ShowBookDetails");
       })
-  };
 
-  onDeleteClick (id) {
-    axios
-      .delete(REACT_BACKEND+'/'+id)
-      .then(res => {
-        this.props.history.push("/");
-      })
-      .catch(err => {
-        console.log("Error form ShowBookDetails_deleteClick");
-      })
-  };
+    }, [])
 
+    // on Delete Click Handler 
+    const onDeleteClick = (id) => {
+      axios
+        .delete(REACT_BACKEND+'/'+id)
+        .then(res => {
+          props.history.push("/");
+        })
+        .catch(err => {
+          console.log("Error form ShowBookDetails_deleteClick");
+        })
+    };
 
-  render() {
-
-    const book = this.state.book;
-    let BookItem = <div>
-      <table className="table table-hover table-dark">
-        {/* <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-          </tr>
-        </thead> */}
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Title</td>
-            <td>{ book.title }</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Author</td>
-            <td>{ book.author }</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>ISBN</td>
-            <td>{ book.isbn }</td>
-          </tr>
-          <tr>
-            <th scope="row">4</th>
-            <td>Publisher</td>
-            <td>{ book.publisher }</td>
-          </tr>
-          <tr>
-            <th scope="row">5</th>
-            <td>Published Date</td>
-            <td>{ book.published_date }</td>
-          </tr>
-          <tr>
-            <th scope="row">6</th>
-            <td>Description</td>
-            <td>{ book.description }</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
+   
     return (
       <div className="ShowBookDetails">
         <div className="container">
@@ -108,12 +56,12 @@ class showBookDetails extends Component {
             </div>
           </div>
           <div>
-            { BookItem }
+            { <BookItem book={book} /> }
           </div>
 
           <div className="row">
             <div className="col-md-6">
-              <button type="button" className="btn btn-outline-danger btn-lg btn-block" onClick={this.onDeleteClick.bind(this,book._id)}>Delete Book</button><br />
+              <button type="button" className="btn btn-outline-danger btn-lg btn-block" onClick={onDeleteClick.bind(this,book._id)}>Delete Book</button><br />
             </div>
 
             <div className="col-md-6">
@@ -124,14 +72,53 @@ class showBookDetails extends Component {
             </div>
 
           </div>
-            {/* <br />
-            <button type="button" class="btn btn-outline-info btn-lg btn-block">Edit Book</button>
-            <button type="button" class="btn btn-outline-danger btn-lg btn-block">Delete Book</button> */}
-
         </div>
       </div>
     );
-  }
+    
+
+}
+
+
+//simple component for table header / row display
+function BookItem(props){
+  return (<div>
+      <table className="table table-hover table-dark">
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Title</td>
+            <td>{ props.book.title }</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Author</td>
+            <td>{ props.book.author }</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>ISBN</td>
+            <td>{ props.book.isbn }</td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td>Publisher</td>
+            <td>{ props.book.publisher }</td>
+          </tr>
+          <tr>
+            <th scope="row">5</th>
+            <td>Published Date</td>
+            <td>{ props.book.published_date }</td>
+          </tr>
+          <tr>
+            <th scope="row">6</th>
+            <td>Description</td>
+            <td>{ props.book.description }</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
 }
 
 export default showBookDetails;
