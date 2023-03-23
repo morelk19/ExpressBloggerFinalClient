@@ -5,10 +5,11 @@ import './App.css';
 
 
 //importing four components 
+
+import CreateBlog from "./components/CreateBlog";
+import UpdateBlogInfo from './components/UpdateBlogInfo';
 import ShowBlogList from './components/ShowBlogList';
 import ShowBlogDetails from './components/ShowBlogDetails';
-import CreateBlog from './components/CreateBlog';
-import UpdateBlogInfo from './components/UpdateBlogInfo';
 
 
 class App extends Component {
