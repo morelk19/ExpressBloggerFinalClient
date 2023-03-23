@@ -2,42 +2,43 @@ import React from 'react';
 import '../App.css';
 import axios from 'axios'; //library for making requests (easier to use than fetch)
 import { Link } from 'react-router-dom';
-import BookCard from './BookCard';
+import BlogCard from './BlogCard';
 import { useState, useEffect } from 'react';
 
 
 const REACT_BACKEND = process.env.REACT_APP_ENDPOINT;
 
-function ShowBookList(props){
+function ShowBlogList(props){
 
   // setup hook
-  const [books, setBooks] = useState([]);  
+  const [blogs, setBlogs] = useState([]);  
 
-  // after component is rendered , get books from endpoint
+  // after component is rendered , get blogss from endpoint
+  console.log();
   useEffect(() => {
     axios
-    .get(REACT_BACKEND)
+    .get(REACT_BACKEND+ "/all")
     .then(res => {
-      setBooks(res.data);
+      setBlogs(res.data.blogs);
     })
     .catch(err =>{
-      console.log('Error from ShowBookList');
+      console.log('Error from ShowBlogList');
     })
   }, [])
 
   return (
 
-    <div className="ShowBookList">
+    <div className="ShowBlogList">
       <div className="container">
         <div className="row">
           <div className="col-md-12">
             <br />
-            <h2 className="display-4 text-center">Books List</h2>
+            <h2 className="display-4 text-center">Blog List</h2>
           </div>
 
           <div className="col-md-11">
             <Link to="/create-book" className="btn btn-outline-warning float-right">
-              + Add New Book
+              + Add New Blog
             </Link>
             <br />
             <br />
@@ -47,8 +48,8 @@ function ShowBookList(props){
         </div>
 
         <div className="list">
-              {books.map((book, k) =>
-      <BookCard book={book} key={k} />
+              {blogs.map((blog, k) =>
+      <BlogCard blog={blog} key={k} />
     )}
         </div>
       </div>
@@ -56,4 +57,4 @@ function ShowBookList(props){
 
 }
 
-export default ShowBookList;
+export default ShowBlogList;

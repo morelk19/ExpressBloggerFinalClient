@@ -5,36 +5,38 @@ import '../App.css';
 
 const REACT_BACKEND = process.env.REACT_APP_ENDPOINT;
 
-class UpdateBookInfo extends Component {
+class UpdateBlogInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
       title: '',
-      isbn: '',
+      text: '', 
       author: '',
-      description: '',
-      published_date: '',
-      publisher: ''
+      year: '',
+      categories: [''],
+      id: '',
+      createdAt: ''
     };
   }
 
   componentDidMount() {
     // console.log("Print id: " + this.props.match.params.id);
     axios
-      .get(REACT_BACKEND+'/'+this.props.match.params.id)
+      .get(REACT_BACKEND+'/get-one/'+this.props.match.params.id)
       .then(res => {
         // this.setState({...this.state, book: res.data})
         this.setState({
           title: res.data.title,
-          isbn: res.data.isbn,
+          text:  res.data.text,
           author: res.data.author,
-          description: res.data.description,
-          published_date: res.data.published_date,
-          publisher: res.data.publisher
+          year:  res.data.year,
+          categories: res.data.categories,
+          id: res.data.id,
+          createdAt: res.data.createdAt
         })
       })
       .catch(err => {
-        console.log("Error from UpdateBookInfo");
+        console.log("Error from UpdateBlogInfo");
       })
   };
 
@@ -47,39 +49,40 @@ class UpdateBookInfo extends Component {
 
     const data = {
       title: this.state.title,
-      isbn: this.state.isbn,
+      text: this.state.text,
       author: this.state.author,
-      description: this.state.description,
-      published_date: this.state.published_date,
-      publisher: this.state.publisher
+      year: this.state.year,
+      categories: this.state.categories,
+      id: this.state.categories,
+      createdAt: this.state.createdAt
     };
 
     axios
-      .put(REACT_BACKEND+'/'+this.props.match.params.id, data)
+      .put(REACT_BACKEND+'/update-one/'+this.props.match.params.id, data)
       .then(res => {
-        this.props.history.push('/show-book/'+this.props.match.params.id);
+        this.props.history.push('/show-blog/'+this.props.match.params.id);
       })
       .catch(err => {
-        console.log("Error in UpdateBookInfo!");
+        console.log("Error in UpdateBlogInfo!");
       })
   };
 
 
   render() {
     return (
-      <div className="UpdateBookInfo">
+      <div className="UpdateBlogInfo">
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
               <br />
               <Link to="/" className="btn btn-outline-warning float-left">
-                  Show BooK List
+                  Show Blog List
               </Link>
             </div>
             <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Edit Book</h1>
+              <h1 className="display-4 text-center">Edit Blog</h1>
               <p className="lead text-center">
-                  Update Book's Info
+                  Update Blog's Info
               </p>
             </div>
           </div>
@@ -90,7 +93,7 @@ class UpdateBookInfo extends Component {
               <label htmlFor="title">Title</label>
               <input
                 type='text'
-                placeholder='Title of the Book'
+                placeholder='Title of the Blog'
                 name='title'
                 className='form-control'
                 value={this.state.title}
@@ -100,13 +103,13 @@ class UpdateBookInfo extends Component {
             <br />
 
             <div className='form-group'>
-            <label htmlFor="isbn">ISBN</label>
+            <label htmlFor="formText">Text</label>
               <input
                 type='text'
-                placeholder='ISBN'
-                name='isbn'
+                placeholder='text'
+                name='formText'
                 className='form-control'
-                value={this.state.isbn}
+                value={this.state.text}
                 onChange={this.onChange}
               />
             </div>
@@ -122,38 +125,26 @@ class UpdateBookInfo extends Component {
                 onChange={this.onChange}
               />
             </div>
-
             <div className='form-group'>
-            <label htmlFor="description">Description</label>
+            <label htmlFor="year">Year</label>
               <input
                 type='text'
-                placeholder='Describe this book'
-                name='description'
+                placeholder='Year of the Blog'
+                name='year'
                 className='form-control'
-                value={this.state.description}
+                value={this.state.year}
                 onChange={this.onChange}
               />
             </div>
 
             <div className='form-group'>
-            <label htmlFor="published_date">Published Date</label>
+            <label htmlFor="categories">Categories</label>
               <input
-                type='date'
-                placeholder='published_date'
-                name='published_date'
+                type='categories'
+                placeholder='Categories of Blog'
+                name='categories'
                 className='form-control'
-                value={this.state.published_date}
-                onChange={this.onChange}
-              />
-            </div>
-            <div className='form-group'>
-            <label htmlFor="publisher">Publisher</label>
-              <input
-                type='text'
-                placeholder='Publisher of this Book'
-                name='publisher'
-                className='form-control'
-                value={this.state.publisher}
+                value={this.state.categories}
                 onChange={this.onChange}
               />
             </div>
@@ -168,4 +159,6 @@ class UpdateBookInfo extends Component {
   }
 }
 
-export default UpdateBookInfo;
+export default UpdateBlogInfo;
+
+

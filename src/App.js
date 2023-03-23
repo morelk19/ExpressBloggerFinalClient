@@ -5,10 +5,10 @@ import './App.css';
 
 
 //importing four components 
-import CreateBook from './components/CreateBook';
-import ShowBookList from './components/ShowBookList';
-import ShowBookDetails from './components/ShowBookDetails';
-import UpdateBookInfo from './components/UpdateBookInfo';
+import ShowBlogList from './components/ShowBlogList';
+import ShowBlogDetails from './components/ShowBlogDetails';
+import CreateBlog from './components/CreateBlog';
+import UpdateBlogInfo from './components/UpdateBlogInfo';
 
 
 class App extends Component {
@@ -16,10 +16,10 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Route exact path='/' component={ShowBookList} />
-          <Route path='/create-book' component={CreateBook} />
-          <Route path='/edit-book/:id' component={UpdateBookInfo} />
-          <Route path='/show-book/:id' component={ShowBookDetails} />
+          <Route exact path='/' component={ShowBlogList} />
+          <Route path='create-blog' component={CreateBlog} />
+          <Route path='/edit-blog/:id' component={UpdateBlogInfo} />
+          <Route path='/show-blog/:id' component={ShowBlogDetails} />
         </div>
       </Router>
     );
