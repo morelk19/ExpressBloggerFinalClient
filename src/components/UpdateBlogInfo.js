@@ -161,4 +161,3 @@ class UpdateBlogInfo extends Component {
 
 export default UpdateBlogInfo;
 
-
