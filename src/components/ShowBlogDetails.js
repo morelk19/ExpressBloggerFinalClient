@@ -1,37 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import '../App.css';
 import axios from 'axios';
+
 
 const REACT_BACKEND = process.env.REACT_APP_ENDPOINT;
 
 function ShowBlogDetails(props){
     const [blog, setBlog] = useState({});
+    const { id } = useParams()
+    const navigate = useNavigate();
 
-    console.log(props);
+   
     useEffect(() => {
 
       axios
-      .get(REACT_BACKEND +'/get-one/'+ props.match.params.id)
+      .get(REACT_BACKEND +'/get-one/'+ id)
       .then(res => {
-        console.log("Print-showBlogDetails-API-response: " + res.data);
-        setBlog(res.data.blogs)
+        console.log("Print-showBlogDetails-API-response: " + res.data.oneBlog);
+        setBlog(res.data.oneBlog)
       })
       .catch(err => {
         console.log("Error from ShowBlogDetails");
       })
 
-    }, [])
+    }, [id])
 
     // on Delete Click Handler 
     const onDeleteClick = (id) => {
+
       axios
         .delete(REACT_BACKEND+'/delete-one/'+id)
         .then(res => {
-          props.history.push("/");
+          console.log(res);
+          navigate("/");
         })
         .catch(err => {
-          console.log("Error form ShowBlogDetails_deleteClick");
+         console.log(err);
         })
     };
 

@@ -22,7 +22,7 @@ class UpdateBlogInfo extends Component {
   componentDidMount() {
     // console.log("Print id: " + this.props.match.params.id);
     axios
-      .get(REACT_BACKEND+'/get-one/'+this.props.match.params.id)
+      .get(REACT_BACKEND+'/get-one/'+this.props.id)
       .then(res => {
         // this.setState({...this.state, book: res.data})
         this.setState({
@@ -58,9 +58,9 @@ class UpdateBlogInfo extends Component {
     };
 
     axios
-      .put(REACT_BACKEND+'/update-one/'+this.props.match.params.id, data)
+      .put(REACT_BACKEND+'/update-one/'+this.props.id, data)
       .then(res => {
-        this.props.history.push('/show-blog/'+this.props.match.params.id);
+        this.props.history.push('/show-blog/'+this.props.id);
       })
       .catch(err => {
         console.log("Error in UpdateBlogInfo!");

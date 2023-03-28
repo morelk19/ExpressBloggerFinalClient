@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 //react router dom
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
 
 
@@ -15,14 +15,13 @@ import ShowBlogDetails from './components/ShowBlogDetails';
 class App extends Component {
   render() {
     return (
-      <Router>
-        <div>
-          <Route exact path='/' component={ShowBlogList} />
-          <Route path='create-blog' component={CreateBlog} />
-          <Route path='/edit-blog/:id' component={UpdateBlogInfo} />
-          <Route path='/show-blog/:id' component={ShowBlogDetails} />
-        </div>
-      </Router>
+
+      <Routes>
+          <Route exact path='/' element={<ShowBlogList/>} />
+          <Route path='/create-blog' element={<CreateBlog/>} />
+          <Route path='/edit-blog/:id' element={<UpdateBlogInfo/>} />
+          <Route path='/show-blog/:id' element={<ShowBlogDetails/>} />
+      </Routes>
     );
   }
 }
