@@ -18,13 +18,13 @@ const RegistrationPage = (props) => {
       <label>email</label>
       <input
         type="text"
-        onChange={(e) => {
+        onChange ={(e) => {
           setEmail(e.target.value);
         }}
       />
       <label>Password</label>
       <input
-        type="password"
+        type="text"
         onChange={(e) => {
           setPassword(e.target.value);
         }}

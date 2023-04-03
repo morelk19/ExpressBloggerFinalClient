@@ -40,7 +40,7 @@ class UpdateBlogInfo extends Component {
       })
   };
 
-  onChange = e => {
+  handleOnChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -97,7 +97,7 @@ class UpdateBlogInfo extends Component {
                 name='title'
                 className='form-control'
                 value={this.state.title}
-                onChange={this.onChange}
+                onChange={this.handleOnChange}
               />
             </div>
             <br />
@@ -110,7 +110,7 @@ class UpdateBlogInfo extends Component {
                 name='formText'
                 className='form-control'
                 value={this.state.text}
-                onChange={this.onChange}
+                onChange={this.handleOnChange}
               />
             </div>
 
@@ -122,18 +122,20 @@ class UpdateBlogInfo extends Component {
                 name='author'
                 className='form-control'
                 value={this.state.author}
-                onChange={this.onChange}
+                onChange={this.handleOnChange}
               />
             </div>
             <div className='form-group'>
             <label htmlFor="year">Year</label>
               <input
-                type='text'
+                type='number'
+                min = '1800'
+                max='2023'
                 placeholder='Year of the Blog'
                 name='year'
                 className='form-control'
                 value={this.state.year}
-                onChange={this.onChange}
+                onChange={this.handleOnChange}
               />
             </div>
 
@@ -145,11 +147,11 @@ class UpdateBlogInfo extends Component {
                 name='categories'
                 className='form-control'
                 value={this.state.categories}
-                onChange={this.onChange}
+                onChange={this.handleOnChange}
               />
             </div>
 
-            <button type="submit" className="btn btn-outline-info btn-lg btn-block">Update Book</button>
+            <button type="submit" className="btn btn-outline-info btn-lg btn-block">Update Blog</button>
             </form>
           </div>
 

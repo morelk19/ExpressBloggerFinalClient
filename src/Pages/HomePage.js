@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../Hooks/Auth";
+import ShowBlogList from "../components/ShowBlogList";
 
 const urlEndpoint = process.env.REACT_APP_URL_ENDPOINT
 
 const HomePage = () => {
 	const [message, setMessage] = useState("")
-	// const {userToken} = useAuth()
+	const [loggedIn, setLoggedIn] = useState('');
 	const auth = useAuth()
 	console.log(auth);
 
-	// console.log(userToken)
 	
 	useEffect(()=>{
 		const fetchMessage = async () => {
 			const headers = {
 				"Content-Type": "application/json",
-				// [process.env.REACT_APP_TOKEN_HEADER_KEY]: auth.userToken
+				 [process.env.REACT_APP_TOKEN_HEADER_KEY]: auth.userToken
 			}
 
 			headers[process.env.REACT_APP_TOKEN_HEADER_KEY] = auth.userToken
@@ -31,11 +31,14 @@ const HomePage = () => {
 			console.log(responseJSON)
 			setMessage(responseJSON.message)
 		}
+		console.log(auth.userToken);
 		if (auth.userToken !== null) {
 			fetchMessage()
+			setLoggedIn(true);
 		}
 		if (auth.userToken === null) {
-			setMessage("")
+			setMessage("");
+			setLoggedIn(false);
 		}
 	}, [auth.userToken])
 
@@ -45,7 +48,12 @@ const HomePage = () => {
 		<div>
 			<h1>Home Page</h1>
 			<p>Message: {message}</p>
+			{loggedIn
+        ? <ShowBlogList/>
+        : ''
+      }
 		</div>
+
 	)
 }
 
